@@ -474,20 +474,18 @@ document.addEventListener('DOMContentLoaded', () => {
       $tocPercentage = $cardTocLayout.querySelector('.toc-percentage')
       isExpand = $cardToc.classList.contains('is-expand')
 
-      
       // toc元素點擊
       const tocItemClickFn = e => {
         const target = e.target.closest('.toc-link')
         if (!target) return
 
         e.preventDefault()
-        scrollToDest(decodeURI($(this).attr('href')))
+        btf.scrollToDest(btf.getEleTop(document.getElementById(decodeURI(target.getAttribute('href')).replace('#', ''))), 300)
         if (window.innerWidth < 900) {
           $cardTocLayout.classList.remove('open')
         }
       }
-    
-    
+
     
     // Assuming this is the event listener setup
     document.querySelectorAll('.toc-link').forEach(function(link) {
