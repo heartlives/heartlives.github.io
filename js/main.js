@@ -485,7 +485,27 @@ document.addEventListener('DOMContentLoaded', () => {
           $cardTocLayout.classList.remove('open')
         }
       }
-
+      function tocItemClickFn(event) {
+        event.preventDefault();
+        var target = event.target;
+        while (target && target.tagName !== 'A') {
+            target = target.parentElement;
+        }
+        if (target) {
+            var targetElement = document.getElementById(decodeURI(target.getAttribute('href')).replace('#', ''));
+            if (targetElement) {
+                btf.scrollToDest(btf.getEleTop(targetElement), 300);
+            } else {
+                console.error('Element not found:', decodeURI(target.getAttribute('href')).replace('#', ''));
+            }
+        }
+    }
+    
+    // Assuming this is the event listener setup
+    document.querySelectorAll('.toc-link').forEach(function(link) {
+        link.addEventListener('click', tocItemClickFn);
+    });
+    
       btf.addEventListenerPjax($cardToc, 'click', tocItemClickFn)
 
       autoScrollToc = item => {
